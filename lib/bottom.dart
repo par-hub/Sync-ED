@@ -23,7 +23,7 @@ class CustomBottomBar extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.insert_drive_file),
               onPressed: () {
-                // No navigation for now
+                Navigator.pushNamed(context, '/ai'); // Navigate to AiPage
               },
             ),
             GestureDetector(

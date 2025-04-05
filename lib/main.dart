@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/academic.dart';
+import 'package:flutter_application_1/ai.dart'; // <-- Make sure this import is correct
 import 'package:flutter_application_1/chat.dart';
 import 'package:flutter_application_1/profilepage.dart';
 import 'package:flutter_application_1/studyplanner.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => const ProfilePage(),
         '/academic': (context) => const Academic(),
         '/chat': (context) => const ChatPage(),
+        '/ai': (context) => const AIPage()
       },
     );
   }
