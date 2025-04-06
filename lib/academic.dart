@@ -111,7 +111,7 @@ class _AcademicState extends State<Academic> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const UploadPDFPage(title: "Upload PDF"),
+                                builder: (context) => const UploadPDFPage(),
                               ),
                             );
                           },
@@ -143,10 +143,14 @@ class _AcademicState extends State<Academic> {
                           height: 240,
                           margin: const EdgeInsets.only(bottom: 12),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.brown,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Center(child: Text(post['title'] ?? 'Document Preview')),
+                          child: const Center(child: Icon(
+                                      Icons.picture_as_pdf,
+                                      color: Colors.white,
+                                      size: 80,
+                                    ),),
                         ),
                       ),
                     ),
@@ -166,28 +170,22 @@ class _AcademicState extends State<Academic> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextField(
+                          Text(
+                            post['title'] ?? 'Untitled',
                             style: const TextStyle(
                               color: Colors.orange,
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                             ),
-                            decoration: const InputDecoration(
-                              hintText: 'Enter document name...',
-                              hintStyle: TextStyle(color: Colors.orange),
-                              border: InputBorder.none,
-                            ),
-                            controller: TextEditingController(text: post['title']),
                           ),
                           const SizedBox(height: 4),
-                          TextField(
-                            style: const TextStyle(color: Colors.white),
-                            decoration: const InputDecoration(
-                              hintText: 'Enter document description...',
-                              hintStyle: TextStyle(color: Colors.white70),
-                              border: InputBorder.none,
+                          Text(
+                            post['data'] ?? 'No description',
+                            style: const TextStyle(
+                              color: Colors.white,
                             ),
-                            controller: TextEditingController(text: post['description']),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),

@@ -5,9 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter_application_1/supabase.dart';
 
 class UploadPDFPage extends StatefulWidget {
-  const UploadPDFPage({super.key, required this.title, this.description=""});
-  final String title;
-  final String description;
+  const UploadPDFPage({super.key});
 
   @override
   State<UploadPDFPage> createState() => _UploadPDFPageState();
@@ -17,6 +15,9 @@ class _UploadPDFPageState extends State<UploadPDFPage> {
   final SupabaseService _supabaseService = SupabaseService();
   String? fileName;
   Uint8List? fileBytes;
+  final TextEditingController _docNameController = TextEditingController();
+  final TextEditingController _docDescriptionController = TextEditingController();
+
   bool _isLoading = false;
 
   void _pickPDF() async {
@@ -66,10 +67,10 @@ class _UploadPDFPageState extends State<UploadPDFPage> {
       final path = '${DateTime.now().millisecondsSinceEpoch}_$fileName';
       
       await _supabaseService.uploadNote(
-        title: widget.title,
+        title: _docNameController.text,
         path: path,
         fileBytes: fileBytes!,
-        data: widget.description,
+        data: _docDescriptionController.text,
       );
 
       if (mounted) {
@@ -91,7 +92,7 @@ class _UploadPDFPageState extends State<UploadPDFPage> {
     }
   }
 
-  @override
+@override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.brown[100],
@@ -100,64 +101,111 @@ class _UploadPDFPageState extends State<UploadPDFPage> {
         backgroundColor: Colors.brown,
         elevation: 4,
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            elevation: 6,
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.picture_as_pdf, color: Colors.red, size: 60),
-                  const SizedBox(height: 20),
-                  Text(
-                    fileName != null
-                        ? "Selected: $fileName"
-                        : "No PDF selected",
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  ElevatedButton.icon(
-                    onPressed: _pickPDF,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12,
-                      ),
-                    ),
-                    icon: const Icon(Icons.upload_file),
-                    label: const Text("Pick a PDF"),
-                  ),
-                  const SizedBox(height: 15),
-                  ElevatedButton.icon(
-                    onPressed: _uploadPDF,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.brown[700],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 12,
+      // Wrap the body with GestureDetector to handle taps
+      body: GestureDetector(
+        onTap: () {
+          // Hide keyboard when tapping outside of text fields
+          FocusScope.of(context).unfocus();
+        },
+        // Make sure the gesture detector doesn't interfere with scrolling
+        behavior: HitTestBehavior.opaque,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              elevation: 6,
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: ListView(
+                  children: [
+                    const Icon(Icons.picture_as_pdf, color: Colors.red, size: 60),
+                    const SizedBox(height: 20),
+                    TextField(
+                      controller: _docNameController,
+                      decoration: InputDecoration(
+                        labelText: 'Document Name',
+                        labelStyle: TextStyle(color: Colors.brown[700]),
+                        filled: true,
+                        fillColor: Colors.brown[50],
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.orange, width: 2),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.brown.shade300, width: 1.5),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       ),
                     ),
-                    icon: const Icon(Icons.cloud_upload),
-                    label: const Text("Upload PDF"),
-                  ),
-                ],
+                    const SizedBox(height: 15),
+                    TextField(
+                      controller: _docDescriptionController,
+                      maxLines: 3,
+                      decoration: InputDecoration(
+                        labelText: 'Document Description',
+                        labelStyle: TextStyle(color: Colors.brown[700]),
+                        filled: true,
+                        fillColor: Colors.brown[50],
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.orange, width: 2),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.brown.shade300, width: 1.5),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      fileName != null
+                          ? "Selected: $fileName"
+                          : "No PDF selected",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    ElevatedButton.icon(
+                      onPressed: _pickPDF,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 12,
+                        ),
+                      ),
+                      icon: const Icon(Icons.upload_file),
+                      label: const Text("Pick a PDF"),
+                    ),
+                    const SizedBox(height: 15),
+                    ElevatedButton.icon(
+                      onPressed: _uploadPDF,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.brown[700],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 12,
+                        ),
+                      ),
+                      icon: const Icon(Icons.cloud_upload),
+                      label: const Text("Upload PDF"),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
