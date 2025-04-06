@@ -1,16 +1,32 @@
-# flutter_application_1
+# Sync-Ed
 
-A new Flutter project.
+**Sync-Ed** is a peer-to-peer learning platform designed to empower students through collaborative study tools, intelligent resume feedback, and academic planning resources — all in one place.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+### Peer-to-Peer Learning & Notes Sharing
+- Connect with classmates and peers from your institution or subject area
+- Upload and share class notes, handwritten material, and study resources
+- Browse categorized notes and rate content for quality
 
-A few resources to get you started if this is your first Flutter project:
+### AI-Based Resume Analysis
+- Get real-time AI feedback on your resume
+- Identify skill gaps based on your target role or industry
+- Suggestions to improve formatting, wording, and ATS compatibility
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Study Planner & Roadmaps
+- Build custom study plans based on your goals and deadlines
+- Access curated learning roadmaps for various domains (e.g., DSA, Web Dev, ML)
+- Stay on track with daily tasks and reminders
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Topic-Based Study Chats
+- Join focused discussion rooms
+- Ask questions, get answers, and collaborate on tough assignments
+- Stay organized with threaded conversations and pinned resources
+
+---
+
+## Tech Stack
+
+- **Frontend:** Flutter (cross-platform mobile support)
+- **Backend:** Supabase (user auth, database, storage)
