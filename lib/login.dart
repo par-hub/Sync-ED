@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                           fontSize: 26,
                           fontWeight: FontWeight.bold,
-                          color: Colors.green,
+                          color: Color(0xFF06402b),
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -99,13 +99,6 @@ class _LoginPageState extends State<LoginPage> {
                       //   onPressed: _handleGitHubSignIn,
                       // ),
                       const SizedBox(height: 16),
-                      const Text(
-                        "--OR--",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.brown,
-                        ),
-                      ),
                       const SizedBox(height: 16),
                       buildSocialButton(
                         "E-Mail",
