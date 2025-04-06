@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/academic.dart';
 import 'package:flutter_application_1/chat.dart';
+<<<<<<< HEAD
 import 'package:flutter_application_1/login2.dart';
+=======
+import 'package:flutter_application_1/pdf.dart';
+>>>>>>> acafaa6 (fourth commit)
 import 'package:flutter_application_1/profilepage.dart';
 import 'package:flutter_application_1/registration.dart';
 import 'package:flutter_application_1/studyplanner.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bottom.dart';
+import 'package:flutter_application_1/pdf.dart';
 
 class Academic extends StatelessWidget {
   const Academic({super.key});
@@ -55,7 +56,21 @@ class Academic extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Icon(Icons.add_circle_outline, color: Colors.white),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const UploadPDFPage(),
+                        ),
+                      );
+                    },
+                    child: const Icon(
+                      Icons.add_circle_outline,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -70,7 +85,7 @@ class Academic extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            // 👇 Repeat document blocks to test scroll
+            // 👇 Document previews loop
             for (int i = 1; i <= 4; i++) ...[
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
