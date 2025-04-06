@@ -1,0 +1,30 @@
+"/Users/dakshsharma/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.18.5/darwin/webview_flutter_wkwebview/Sources/webview_flutter_wkwebview/FlutterAssetManager.swift":
+  swift-dependencies: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/FlutterAssetManager.swiftdeps"
+  diagnostics: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/FlutterAssetManager.dia"
+  dependencies: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/FlutterAssetManager.d"
+  object: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/FlutterAssetManager.o"
+  const-values: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/FlutterAssetManager.swiftconstvalues"
+"/Users/dakshsharma/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.18.5/darwin/webview_flutter_wkwebview/Sources/webview_flutter_wkwebview/FlutterViewFactory.swift":
+  const-values: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/FlutterViewFactory.swiftconstvalues"
+  swift-dependencies: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/FlutterViewFactory.swiftdeps"
+  diagnostics: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/FlutterViewFactory.dia"
+  dependencies: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/FlutterViewFactory.d"
+  object: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/FlutterViewFactory.o"
+"/Users/dakshsharma/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.18.5/darwin/webview_flutter_wkwebview/Sources/webview_flutter_wkwebview/AuthenticationChallengeResponse.swift":
+  const-values: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/AuthenticationChallengeResponse.swiftconstvalues"
+  diagnostics: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/AuthenticationChallengeResponse.dia"
+  dependencies: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/AuthenticationChallengeResponse.d"
+  swift-dependencies: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/AuthenticationChallengeResponse.swiftdeps"
+  object: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/AuthenticationChallengeResponse.o"
+"/Users/dakshsharma/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.18.5/darwin/webview_flutter_wkwebview/Sources/webview_flutter_wkwebview/AuthenticationChallengeResponseProxyAPIDelegate.swift":
+  dependencies: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/AuthenticationChallengeResponseProxyAPIDelegate.d"
+  object: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/AuthenticationChallengeResponseProxyAPIDelegate.o"
+  diagnostics: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/AuthenticationChallengeResponseProxyAPIDelegate.dia"
+  const-values: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/AuthenticationChallengeResponseProxyAPIDelegate.swiftconstvalues"
+  swift-dependencies: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/AuthenticationChallengeResponseProxyAPIDelegate.swiftdeps"
+"/Users/dakshsharma/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.18.5/darwin/webview_flutter_wkwebview/Sources/webview_flutter_wkwebview/ErrorProxyAPIDelegate.swift":
+  object: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/ErrorProxyAPIDelegate.o"
+  swift-dependencies: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/ErrorProxyAPIDelegate.swiftdeps"
+  diagnostics: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/ErrorProxyAPIDelegate.dia"
+  dependencies: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/ErrorProxyAPIDelegate.d"
+  const-values: "/Users/dakshsharma/Documents/Coding/Sync-ED/build/macos/Build/Intermediates.noindex/Pods.build/Debug/webview_flutter_wkwebview.build/Objects-normal/arm64/ErrorProxyAPIDelegate.swiftconstvalues"

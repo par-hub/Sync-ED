@@ -1,0 +1,59 @@
+{
+  "main_library": {
+    "exported_symbols": [
+      {
+        "data": {
+          "global": [
+            "_$s9app_links19AppLinksMacosPluginCN",
+            "_$s9app_links19AppLinksMacosPluginCMa",
+            "_$s9app_links19AppLinksMacosPluginC8onCancel13withArgumentsSo12FlutterErrorCSgypSg_tFTj",
+            "_$s9app_links19AppLinksMacosPluginC8register4withySo07FlutterF9Registrar_p_tFZ",
+            "_$s9app_links19AppLinksMacosPluginC25handleWillFinishLaunchingyy10Foundation12NotificationVFTj",
+            "_$s9app_links19AppLinksMacosPluginCMn",
+            "_$s9app_links19AppLinksMacosPluginCfD",
+            "_app_linksVersionString",
+            "_$s9app_links19AppLinksMacosPluginC8onCancel13withArgumentsSo12FlutterErrorCSgypSg_tFTq",
+            "_$s9app_links19AppLinksMacosPluginCACycfc",
+            "_$s9app_links19AppLinksMacosPluginC8onListen13withArguments9eventSinkSo12FlutterErrorCSgypSg_yAJctFTq",
+            "_$s9app_links19AppLinksMacosPluginCMo",
+            "_$s9app_links19AppLinksMacosPluginCACycfC",
+            "_app_linksVersionNumber",
+            "_$s9app_links19AppLinksMacosPluginC25handleWillFinishLaunchingyy10Foundation12NotificationVFTq",
+            "_$s9app_links19AppLinksMacosPluginC6handle_6resultySo17FlutterMethodCallC_yypSgctFTq",
+            "_$s9app_links19AppLinksMacosPluginC8onListen13withArguments9eventSinkSo12FlutterErrorCSgypSg_yAJctFTj",
+            "_$s9app_links19AppLinksMacosPluginC6handle_6resultySo17FlutterMethodCallC_yypSgctFTj",
+            "_$s9app_links19AppLinksMacosPluginCMu"
+          ],
+          "objc_class": [
+            "_TtC9app_links19AppLinksMacosPlugin",
+            "PodsDummy_app_links"
+          ]
+        }
+      }
+    ],
+    "flags": [
+      {
+        "attributes": [
+          "not_app_extension_safe"
+        ]
+      }
+    ],
+    "install_names": [
+      {
+        "name": "@rpath/app_links.framework/Versions/A/app_links"
+      }
+    ],
+    "swift_abi": [
+      {
+        "abi": 7
+      }
+    ],
+    "target_info": [
+      {
+        "min_deployment": "11",
+        "target": "arm64-macos"
+      }
+    ]
+  },
+  "tapi_tbd_version": 5
+}
