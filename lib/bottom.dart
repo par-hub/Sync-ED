@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomBottomBar extends StatelessWidget {
   const CustomBottomBar({super.key});
+
+  Future<void> _launchURL() async {
+    const url =
+        'https://files.bpcontent.cloud/2025/04/05/06/20250405061617-KN2MUCB7.html';
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +33,7 @@ class CustomBottomBar extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(Icons.insert_drive_file),
-              onPressed: () {
-                Navigator.pushNamed(context, '/ai'); // Navigate to AiPage
-              },
+              onPressed: _launchURL, // Launch link
             ),
             GestureDetector(
               onTap: () {
