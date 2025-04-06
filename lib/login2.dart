@@ -1,8 +1,51 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/supabase.dart';
 
-class LoginPage2 extends StatelessWidget {
+class LoginPage2 extends StatefulWidget {
   const LoginPage2({super.key});
+
+  @override
+  State<LoginPage2> createState() => _LoginPage2State();
+}
+
+class _LoginPage2State extends State<LoginPage2> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _supabaseService = SupabaseService();
+  bool _isLoading = false;
+
+  Future<void> _handleLogin() async {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields')),
+      );
+      return;
+    }
+
+    setState(() => _isLoading = true);
+    try {
+      await _supabaseService.signIn(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString())),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +54,7 @@ class LoginPage2 extends StatelessWidget {
         children: [
           SizedBox.expand(
             child: Image.asset(
-              'background.jpg',
+              'assets/background.jpg',
               fit: BoxFit.cover,
             ),
           ),
@@ -40,8 +83,9 @@ class LoginPage2 extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      const TextField(
-                        decoration: InputDecoration(
+                      TextField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(
                           labelText: 'E-Mail',
                           hintText: 'Enter your email',
                           labelStyle: TextStyle(
@@ -52,9 +96,10 @@ class LoginPage2 extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      const TextField(
+                      TextField(
+                        controller: _passwordController,
                         obscureText: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Password',
                           hintText: 'Enter your password',
                           labelStyle: TextStyle(
@@ -66,7 +111,7 @@ class LoginPage2 extends StatelessWidget {
                       ),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: _isLoading ? null : _handleLogin,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                           shape: RoundedRectangleBorder(
@@ -74,10 +119,19 @@ class LoginPage2 extends StatelessWidget {
                           ),
                           minimumSize: const Size(double.infinity, 45),
                         ),
-                        child: const Text(
-                          "Log In",
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
+                        child: _isLoading
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Text(
+                                "Log In",
+                                style: TextStyle(fontSize: 16, color: Colors.white),
+                              ),
                       ),
                       const SizedBox(height: 16),
                       Row(
@@ -88,7 +142,9 @@ class LoginPage2 extends StatelessWidget {
                             style: TextStyle(color: Colors.black),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(context, '/login/registration');
+                            },
                             child: const Text(
                               "Register",
                               style: TextStyle(
@@ -106,6 +162,11 @@ class LoginPage2 extends StatelessWidget {
               ),
             ),
           ),
+          if (_isLoading)
+            Container(
+              color: Colors.black.withOpacity(0.5),
+              child: const Center(child: CircularProgressIndicator()),
+            ),
         ],
       ),
     );

@@ -3,6 +3,10 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+<<<<<<< HEAD
+=======
+  gtk
+>>>>>>> 3d125bc (BackEnd integration)
   url_launcher_linux
 )
 

@@ -1,8 +1,70 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/supabase.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _supabaseService = SupabaseService();
+  bool _isLoading = false;
+
+  Future<void> _handleRegistration() async {
+    // Validate inputs
+    if (_nameController.text.isEmpty || 
+        _emailController.text.isEmpty || 
+        _passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields')),
+      );
+      return;
+    }
+
+    setState(() => _isLoading = true);
+    try {
+      await _supabaseService.signUp(
+        email: _emailController.text.trim(),
+        display: _nameController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Registration successful! Please log in.'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        Navigator.pop(context); // Return to login page
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.toString().replaceAll('Exception: ', '')),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +73,7 @@ class RegisterPage extends StatelessWidget {
         children: [
           SizedBox.expand(
             child: Image.asset(
-              'background.jpg',
+              'assets/background.jpg',
               fit: BoxFit.cover,
             ),
           ),
@@ -39,34 +101,29 @@ class RegisterPage extends StatelessWidget {
                           color: Colors.green,
                         ),
                       ),
-                      const SizedBox(height: 4),
-                      const Text(
-                        "through",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.brown,
-                        ),
-                      ),
                       const SizedBox(height: 20),
-                      const TextField(
-                        decoration: InputDecoration(
+                      TextField(
+                        controller: _nameController,
+                        decoration: const InputDecoration(
                           labelText: 'Name',
                           hintText: 'Enter your name',
                           border: UnderlineInputBorder(),
                         ),
                       ),
                       const SizedBox(height: 12),
-                      const TextField(
-                        decoration: InputDecoration(
+                      TextField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(
                           labelText: 'E-Mail',
                           hintText: 'Enter your email',
                           border: UnderlineInputBorder(),
                         ),
                       ),
                       const SizedBox(height: 12),
-                      const TextField(
+                      TextField(
+                        controller: _passwordController,
                         obscureText: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Password',
                           hintText: 'Enter your password',
                           border: UnderlineInputBorder(),
@@ -74,7 +131,7 @@ class RegisterPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: _isLoading ? null : _handleRegistration,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                           shape: RoundedRectangleBorder(
@@ -82,17 +139,31 @@ class RegisterPage extends StatelessWidget {
                           ),
                           minimumSize: const Size(double.infinity, 45),
                         ),
-                        child: const Text(
-                          "Register",
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
-                      )
+                        child: _isLoading
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Text(
+                                "Register",
+                                style: TextStyle(fontSize: 16, color: Colors.white),
+                              ),
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
           ),
+          if (_isLoading)
+            Container(
+              color: Colors.black.withOpacity(0.5),
+              child: const Center(child: CircularProgressIndicator()),
+            ),
         ],
       ),
     );

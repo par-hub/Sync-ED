@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bottom.dart';
-import 'package:flutter_application_1/studyplanner2.dart';
+import 'package:flutter_application_1/studyplanner_popup.dart';
+import 'supabase.dart';
 
 class StudyPlannerPage extends StatefulWidget {
   const StudyPlannerPage({super.key});
@@ -10,26 +11,64 @@ class StudyPlannerPage extends StatefulWidget {
 }
 
 class _StudyPlannerPageState extends State<StudyPlannerPage> {
-  List<Map<String, dynamic>> cards = [
-    {
-      "color": Colors.orange.shade200,
-      "controller": TextEditingController(),
-    },
-    {
-      "color": Colors.orange.shade300,
-      "controller": TextEditingController(),
-    },
-  ];
+  final SupabaseService _supabaseService = SupabaseService();
+  List<Map<String, dynamic>> cards = [];
+  bool _isLoading = true;
 
-  void _addCard() {
-    setState(() {
-      cards.add({
-        "color": cards.length % 2 == 0
-            ? Colors.orange.shade200
-            : Colors.orange.shade300,
-        "controller": TextEditingController(),
+  @override
+  void initState() {
+    super.initState();
+    _loadCards();
+  }
+
+  Future<void> _loadCards() async {
+    setState(() => _isLoading = true);
+    try {
+      final data = await _supabaseService.getStudyPlannerNotes();
+      setState(() {
+        cards = data.map((note) => {
+          "id": note['id'],
+          "color": note['index'] % 2 == 0 
+              ? Colors.orange.shade200 
+              : Colors.orange.shade300,
+          "controller": TextEditingController(text: note['title']),
+          "notes": note['notes'],
+          "date": note['date'] != null ? DateTime.parse(note['date']) : null,
+        }).toList();
       });
-    });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error loading notes: $e')),
+      );
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _addCard() async {
+    try {
+      final response = await _supabaseService.addToStudyPlanner(
+        title: '',
+        notes: '',
+        id: cards.length,
+      );
+      
+      setState(() {
+        cards.add({
+          "id": response['id'],
+          "color": cards.length % 2 == 0
+              ? Colors.orange.shade200
+              : Colors.orange.shade300,
+          "controller": TextEditingController(),
+          "notes": '',
+          "date": null,
+        });
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error adding note: $e')),
+      );
+    }
   }
 
   @override
@@ -43,7 +82,7 @@ class _StudyPlannerPageState extends State<StudyPlannerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CustomBottomBar(),
+      bottomNavigationBar: const CustomBottomBar(),
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
         title: const Text("Study Planner"),

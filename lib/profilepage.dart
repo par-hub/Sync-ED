@@ -60,10 +60,10 @@ class ProfilePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    Positioned(
+                    const Positioned(
                       bottom: 0,
                       child: Column(
-                        children: const [
+                        children: [
                           CircleAvatar(
                             radius: 40,
                             backgroundImage:
@@ -87,8 +87,8 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(height: 20),
 
               // My Posts Section
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(

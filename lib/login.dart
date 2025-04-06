@@ -1,8 +1,47 @@
-import 'dart:ui'; // Required for blur
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/supabase.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _supabaseService = SupabaseService();
+  bool _isLoading = false;
+
+  Future<void> _handleGitHubSignIn() async {
+    setState(() => _isLoading = true);
+    try {
+      await _supabaseService.signInWithGitHub();
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString())),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  // Future<void> _handleLinkedInSignIn() async {
+  //   setState(() => _isLoading = true);
+  //   try {
+  //     await _supabaseService.signInWithLinkedin();
+  //   } catch (e) {
+  //     if (mounted) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text(e.toString())),
+  //       );
+  //     }
+  //   } finally {
+  //     if (mounted) setState(() => _isLoading = false);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +86,18 @@ class LoginPage extends StatelessWidget {
                           color: Colors.brown,
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      buildSocialButton("LinkedIn", Colors.blue),
-                      const SizedBox(height: 12),
-                      buildSocialButton("GitHub", Colors.black),
+                      // const SizedBox(height: 20),
+                      // buildSocialButton(
+                      //   "LinkedIn",
+                      //   Colors.blue,
+                      //   onPressed: _handleLinkedInSignIn,
+                      // ),
+                      // const SizedBox(height: 12),
+                      // buildSocialButton(
+                      //   "GitHub",
+                      //   Colors.black,
+                      //   onPressed: _handleGitHubSignIn,
+                      // ),
                       const SizedBox(height: 16),
                       const Text(
                         "--OR--",
@@ -60,10 +107,14 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      buildSocialButton("E-Mail", Colors.red),
+                      buildSocialButton(
+                        "E-Mail",
+                        Colors.red,
+                        onPressed: () => Navigator.pushNamed(context, '/login/email'),
+                      ),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.pushNamed(context, '/login/registration'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                           shape: RoundedRectangleBorder(
@@ -75,21 +126,26 @@ class LoginPage extends StatelessWidget {
                           "Register",
                           style: TextStyle(fontSize: 16),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
           ),
+          if (_isLoading)
+            Container(
+              color: Colors.black.withOpacity(0.5),
+              child: const Center(child: CircularProgressIndicator()),
+            ),
         ],
       ),
     );
   }
 
-  Widget buildSocialButton(String text, Color color) {
+  Widget buildSocialButton(String text, Color color, {VoidCallback? onPressed}) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: _isLoading ? null : onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
         side: BorderSide(color: color),
