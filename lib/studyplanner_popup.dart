@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class Studyplanner2 extends StatelessWidget {
   final TextEditingController controller;
-
-  const Studyplanner2({super.key, required this.controller});
+  final String notes;
+  const Studyplanner2({super.key, required this.controller, required this.notes});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,9 @@ class Studyplanner2 extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, {
+              'notes': controller.text,
+            });
           },
         ),
       ),

@@ -46,6 +46,22 @@ class SupabaseService {
   // Get Supabase client
   final SupabaseClient _supabase = Supabase.instance.client;
 
+  Future<Map<String, dynamic>> getCurrentUser() async {
+    try {
+      final user = _supabase.auth.currentUser;
+      if (user == null) {
+        throw Exception('User is not authenticated');
+      }
+      final response = await _supabase
+          .from('Users')
+          .select()
+          .eq('user_id', user.id)
+          .single();
+      return response as Map<String, dynamic>;
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   // Authentication methods
   Future<AuthResponse?> signUp({
@@ -230,8 +246,8 @@ class SupabaseService {
       final response = await _supabase
           .from('Study_planner_notes')
           .select()
-          .eq('user_id', currentUserId)
-          .order('created_at');
+          .eq('user_Id', currentUserId)
+          .order('date');
       
       if (response == null) {
         return [];
@@ -249,7 +265,7 @@ class SupabaseService {
     required String title,
     String? notes,
     DateTime? date,
-    required int id
+    required int index, // Changed from id to index
   }) async {
     try {
       if (currentUserId == null) {
@@ -260,7 +276,7 @@ class SupabaseService {
         'title': title,
         'notes': notes,
         'user_Id': currentUserId,
-        'id':id,
+        'index': index, // Use index instead of id
         'date': date?.toIso8601String(),
       };
       
@@ -270,11 +286,36 @@ class SupabaseService {
           .select()
           .single();
           
-      return response['message_id'];
-    } on PostgrestException catch (e) {
-      throw Exception('Database error: ${e.message}');
+      return response as Map<String, dynamic>; // Return the full response
     } catch (e) {
-      throw Exception('Error sending message: $e');
+      throw Exception('Error adding study note: $e');
+    }
+  }
+
+  Future<void> updateStudyPlannerNote({
+    required int id,
+    String? title,
+    String? notes,
+    DateTime? date,
+  }) async {
+    try {
+      if (currentUserId == null) {
+        throw Exception('User is not authenticated');
+      }
+      
+      final updateData = {
+        if (title != null) 'title': title,
+        if (notes != null) 'notes': notes,
+        if (date != null) 'date': date.toIso8601String(),
+      };
+      
+      await _supabase
+          .from('Study_planner_notes')
+          .update(updateData)
+          .eq('id', id)
+          .eq('user_Id', currentUserId);
+    } catch (e) {
+      throw Exception('Error updating study note: $e');
     }
   }
 
@@ -351,6 +392,8 @@ class SupabaseService {
       if (currentUserId == null) {
         throw Exception('User is not authenticated');
       }
+
+      // No need to include user_id in path since bucket is public
       final storage = _supabase.storage.from('pdfnotes');
       
       await storage.uploadBinary(
@@ -363,18 +406,18 @@ class SupabaseService {
       );
 
       final String publicUrl = storage.getPublicUrl(path);
+      
+      // Create database entry with user_id for access control
       final noteData = {
         'title': title,
         'data': data,
         'note': publicUrl,
         'user_id': currentUserId,
+        'date_time': DateTime.now().toIso8601String(),
       };
+      
       await _supabase.from('Posts').insert(noteData);
       return publicUrl;
-    } on StorageException catch (e) {
-      throw Exception('Storage error: ${e.message}');
-    } on PostgrestException catch (e) {
-      throw Exception('Database error: ${e.message}');
     } catch (e) {
       throw Exception('Error uploading note: $e');
     }
@@ -433,5 +476,82 @@ class SupabaseService {
     return [];
   }
   }
+
+  Future<String?> getUserProfileImageUrl() async {
+    try {
+      if (currentUserId == null) {
+        return null;
+      }
+      
+      final response = await _supabase
+          .from('Users')
+          .select('pfp')
+          .eq('user_id', currentUserId)
+          .single();
+      
+      return response['pfp'] as String?;
+    } catch (e) {
+      print('Error fetching profile image: $e');
+      return null;
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getUserPosts() async {
+    try {
+      if (currentUserId == null) {
+        throw Exception('User is not authenticated');
+      }
+      
+      final response = await _supabase
+          .from('Posts')
+          .select()
+          .eq('user_id', currentUserId)
+          .order('date_time', ascending: false);
+      
+      return List<Map<String, dynamic>>.from(response as List);
+    } catch (e) {
+      print('Error fetching user posts: $e');
+      return [];
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getAllPosts() async {
+  try {
+    final response = await _supabase
+        .from('Posts')
+        .select('''
+          *,
+          Users (
+            display_name,
+            pfp
+          )
+        ''')
+        .order('date_time', ascending: false);
+    
+    if (response == null) {
+      return [];
+    }
+    
+    return List<Map<String, dynamic>>.from(response as List);
+  } catch (e) {
+    print('Error fetching all posts: $e');
+    return [];
+  }
+}
+
+  Future<Map<String, dynamic>?> getUserById(String userId) async {
+  try {
+    final response = await _supabase
+        .from('Users')
+        .select()
+        .eq('user_id', userId)
+        .single();
+    
+    return response as Map<String, dynamic>;
+  } catch (e) {
+    print('Error fetching user: $e');
+    return null;
+  }
+}
 }
 

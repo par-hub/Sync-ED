@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/supabase.dart';
 
 class LogoutDialogScreen extends StatelessWidget {
-  const LogoutDialogScreen({super.key});
+  const LogoutDialogScreen({super.key, required this.supabase});
+  final SupabaseService supabase;
 
+  
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -26,7 +29,8 @@ class LogoutDialogScreen extends StatelessWidget {
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context); // Close dialog
+                supabase.signOut();
+                Navigator.popUntil(context, (route) => route.isFirst); // Close dialog
                 // Handle YES logic here
               },
               style: ElevatedButton.styleFrom(

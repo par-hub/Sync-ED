@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/supabase.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomBottomBar extends StatelessWidget {
@@ -16,6 +17,8 @@ class CustomBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final supabase = SupabaseService();
+
     return BottomAppBar(
       color: Colors.orange[300],
       shape: const CircularNotchedRectangle(),
@@ -33,25 +36,40 @@ class CustomBottomBar extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(Icons.insert_drive_file),
-              onPressed: _launchURL, // Launch link
+              onPressed: _launchURL,
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/profile');
-              },
-              child: Container(
-                height: 40,
-                width: 40,
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.brown, width: 2),
-                  image: const DecorationImage(
-                    image: AssetImage('assets/profile.jpg'),
-                    fit: BoxFit.cover,
+            FutureBuilder<Map<String, dynamic>?>(
+              future: supabase.getCurrentUser(),
+              builder: (context, snapshot) {
+                String? pfpUrl;
+                if (snapshot.hasData && snapshot.data != null) {
+                  pfpUrl = snapshot.data!['pfp'];
+                }
+                
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  child: Container(
+                    height: 40,
+                    width: 40,
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.brown, width: 2),
+                      image: pfpUrl != null
+                          ? DecorationImage(
+                              image: NetworkImage(pfpUrl),
+                              fit: BoxFit.cover,
+                            )
+                          : const DecorationImage(
+                              image: AssetImage('assets/default_avatar.png'),
+                              fit: BoxFit.cover,
+                            ),
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
             IconButton(
               icon: const Icon(Icons.attach_file),

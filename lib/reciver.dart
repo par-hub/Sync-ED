@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/supabase.dart';
 
 class Receiver extends StatelessWidget {
-  final String text; // 1️⃣ Declare the text variable
+  final String text;
+  final String? userId;
 
-  const Receiver(
-      {super.key, required this.text}); // 2️⃣ Accept it in constructor
+  const Receiver({
+    super.key, 
+    required this.text,
+    this.userId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +18,23 @@ class Receiver extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const CircleAvatar(
-            radius: 14,
-            backgroundImage: NetworkImage("https://via.placeholder.com/150"),
+          FutureBuilder<Map<String, dynamic>?>(
+            future: userId != null 
+                ? SupabaseService().getUserById(userId!)
+                : null,
+            builder: (context, snapshot) {
+              final imageUrl = snapshot.data?['pfp'];
+              return CircleAvatar(
+                radius: 14,
+                backgroundColor: Colors.brown[200],
+                backgroundImage: imageUrl != null 
+                    ? NetworkImage(imageUrl)
+                    : null,
+                child: imageUrl == null
+                    ? const Icon(Icons.person, size: 16, color: Colors.white)
+                    : null,
+              );
+            },
           ),
           const SizedBox(width: 8),
           Container(
@@ -26,7 +45,7 @@ class Receiver extends StatelessWidget {
               color: Colors.orange.shade100,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text(text), // 3️⃣ Use it here
+            child: Text(text),
           ),
         ],
       ),

@@ -98,7 +98,10 @@ class _ChatPageState extends State<ChatPage> {
 
                 return isMe
                     ? Sender(text: msg['text'])
-                    : Receiver(text: msg['text']);
+                    : Receiver(
+                        text: msg['text'],
+                        userId: msg['user_id'],
+                      );
               },
             ),
           ),

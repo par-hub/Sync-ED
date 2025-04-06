@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/supabase.dart';
 
 class Sender extends StatelessWidget {
   final String text;
@@ -23,9 +24,21 @@ class Sender extends StatelessWidget {
             child: Text(text),
           ),
           const SizedBox(width: 8),
-          const CircleAvatar(
-            radius: 14,
-            backgroundImage: NetworkImage("https://via.placeholder.com/150"),
+          FutureBuilder<String?>(
+            future: SupabaseService().getUserProfileImageUrl(),
+            builder: (context, snapshot) {
+              final imageUrl = snapshot.data;
+              return CircleAvatar(
+                radius: 14,
+                backgroundColor: Colors.brown[200],
+                backgroundImage: imageUrl != null 
+                    ? NetworkImage(imageUrl)
+                    : null,
+                child: imageUrl == null
+                    ? const Icon(Icons.person, size: 16, color: Colors.white)
+                    : null,
+              );
+            },
           ),
         ],
       ),

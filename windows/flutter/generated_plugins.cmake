@@ -3,10 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-<<<<<<< HEAD
-=======
   app_links
->>>>>>> 3d125bc (BackEnd integration)
   url_launcher_windows
 )
 

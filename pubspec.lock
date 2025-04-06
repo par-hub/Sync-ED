@@ -49,6 +49,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.0"
+  cross_file:
+    dependency: transitive
+    description:
+      name: cross_file
+      sha256: "7caf6a750a0c04effbb52a676dce9a4a592e10ad35c34d6d2d0e4811160d5670"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.4+2"
   crypto:
     dependency: transitive
     description:
@@ -89,6 +97,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      sha256: "36a1652d99cb6bf8ccc8b9f43aded1fd60b234d23ce78af422c07f950a436ef7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.0.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -102,6 +118,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      sha256: "5a1e6fb2c0561958d7e4c33574674bda7b77caaca7a33b758876956f2902eea3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.27"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -112,8 +136,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
-=======
   functions_client:
     dependency: transitive
     description:
@@ -186,7 +208,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.1"
->>>>>>> 3d125bc (BackEnd integration)
   leak_tracker:
     dependency: transitive
     description:
@@ -259,8 +280,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.0"
-<<<<<<< HEAD
-=======
   path_provider:
     dependency: transitive
     description:
@@ -317,7 +336,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.6"
->>>>>>> 3d125bc (BackEnd integration)
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -326,8 +344,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
-<<<<<<< HEAD
-=======
   postgrest:
     dependency: transitive
     description:
@@ -440,7 +456,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
->>>>>>> 3d125bc (BackEnd integration)
   sky_engine:
     dependency: transitive
     description: flutter
@@ -517,11 +532,6 @@ packages:
       sha256: "664d3a9a64782fcdeb83ce9c6b39e78fd2971d4e37827b9b06c3aa1edc5e760c"
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
-    version: "0.7.2"
-  url_launcher:
-    dependency: "direct main"
-=======
     version: "0.7.3"
   typed_data:
     dependency: transitive
@@ -532,8 +542,7 @@ packages:
     source: hosted
     version: "1.4.0"
   url_launcher:
-    dependency: transitive
->>>>>>> 3d125bc (BackEnd integration)
+    dependency: "direct main"
     description:
       name: url_launcher
       sha256: "9d06212b1362abc2f0f0d78e6f09f726608c74e3b9462e8368bb03314aa8d603"
@@ -544,17 +553,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-<<<<<<< HEAD
-      sha256: "6fc2f56536ee873eeb867ad176ae15f304ccccc357848b351f6f0d8d4a40d193"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.3.14"
-=======
       sha256: "1d0eae19bd7606ef60fe69ef3b312a437a16549476c42321d5dc1506c9ca3bf4"
       url: "https://pub.dev"
     source: hosted
     version: "6.3.15"
->>>>>>> 3d125bc (BackEnd integration)
   url_launcher_ios:
     dependency: transitive
     description:
@@ -591,17 +593,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_web
-<<<<<<< HEAD
-      sha256: "772638d3b34c779ede05ba3d38af34657a05ac55b06279ea6edd409e323dca8e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.3"
-=======
       sha256: "3ba963161bd0fe395917ba881d320b9c4f6dd3c4a233da62ab18a5025c85f1e9"
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
->>>>>>> 3d125bc (BackEnd integration)
   url_launcher_windows:
     dependency: transitive
     description:
@@ -625,30 +620,23 @@ packages:
       sha256: f6be3ed8bd01289b34d679c2b62226f63c0e69f9fd2e50a6b3c1c729a961041b
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
-    version: "14.2.5"
-=======
     version: "14.3.0"
->>>>>>> 3d125bc (BackEnd integration)
   web:
     dependency: transitive
     description:
       name: web
-<<<<<<< HEAD
       sha256: "868d88a33d8a87b18ffc05f9f030ba328ffefba92d6c127917a2ba740f9cfe4a"
-=======
-      sha256: "97da13628db363c635202ad97068d47c5b8aa555808e7a9411963c533b449b27"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1"
+    version: "1.1.1"
   web_socket_channel:
     dependency: transitive
     description:
       name: web_socket_channel
-      sha256: "58c6666b342a38816b2e7e50ed0f1e261959630becd4c879c4f26bfa14aa5a42"
+      sha256: d88238e5eac9a42bb43ca4e721edba3c08c6354d4a53063afaa568516217621b
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.5"
+    version: "2.4.0"
   webview_flutter:
     dependency: transitive
     description:
@@ -681,6 +669,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.18.5"
+  win32:
+    dependency: transitive
+    description:
+      name: win32
+      sha256: daf97c9d80197ed7b619040e86c8ab9a9dad285e7671ee7390f9180cc828a51e
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.10.1"
   xdg_directories:
     dependency: transitive
     description:
@@ -694,15 +690,9 @@ packages:
     description:
       name: yet_another_json_isolate
       sha256: "86fad76026c4241a32831d6c7febd8f9bded5019e2cd36c5b148499808d8307d"
->>>>>>> 3d125bc (BackEnd integration)
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
 sdks:
-<<<<<<< HEAD
-  dart: ">=3.5.3 <4.0.0"
-  flutter: ">=3.24.0"
-=======
   dart: ">=3.6.0 <4.0.0"
   flutter: ">=3.27.0"
->>>>>>> 3d125bc (BackEnd integration)
