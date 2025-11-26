@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/academic.dart';
+import 'package:flutter_application_1/ai.dart';
 import 'package:flutter_application_1/chat.dart';
 import 'package:flutter_application_1/login2.dart';
 import 'package:flutter_application_1/profilepage.dart';
@@ -80,6 +81,8 @@ class _MyAppState extends State<MyApp> {
         switch (settings.name) {
           case '/':
             return MaterialPageRoute(builder: (_) => const ProfilePage());
+          case '/ai':
+            return MaterialPageRoute(builder: (_) => const AIPage());
           case '/studyplanner':
             return MaterialPageRoute(builder: (_) => const StudyPlannerPage());
           case '/profile':

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class AIPage extends StatefulWidget {
   const AIPage({super.key});
@@ -13,19 +15,73 @@ class _AIPageState extends State<AIPage> {
   final List<Map<String, dynamic>> messages = [
     {"text": "Here is my CV.", "isMe": true},
     {"text": "Thanks! I'm reviewing it now...", "isMe": false},
-    {"text": "Typing...", "isMe": false},
   ];
 
-  void sendMessage() {
+  // The Botpress webhook URL
+  final String botpressWebhookUrl = "https://webhook.botpress.cloud/a767ea7d-3706-4ad0-877a-1cae5e01405c";
+
+  Future<void> sendMessage() async {
     if (_controller.text.trim().isEmpty) return;
 
+    final userMessage = _controller.text.trim();
+
     setState(() {
+      // Add user's message to the chat
       messages.add({
-        "text": _controller.text.trim(),
+        "text": userMessage,
         "isMe": true,
       });
+      // Clear the text field
       _controller.clear();
+      // Optionally, add a "typing" indicator from the bot
+      messages.add({"text": "Typing...", "isMe": false});
     });
+
+    try {
+      final response = await http.post(
+        Uri.parse(botpressWebhookUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'text': userMessage,
+          // You can include additional parameters here (like sender/session id) if needed
+          'sender': 'user' // or use a unique user identifier
+        }),
+      );
+
+      // Remove the "Typing..." message
+      setState(() {
+        messages.removeWhere((msg) => msg['text'] == 'Typing...');
+      });
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        // Adjust this part depending on the actual response structure from your bot
+        final botReply = data['reply'] ?? "No reply";
+
+        setState(() {
+          messages.add({
+            "text": botReply,
+            "isMe": false,
+          });
+        });
+      } else {
+        setState(() {
+          messages.add({
+            "text": "Error: ${response.statusCode}",
+            "isMe": false,
+          });
+        });
+      }
+    } catch (e) {
+      // Remove the "Typing..." message if an exception occurs
+      setState(() {
+        messages.removeWhere((msg) => msg['text'] == 'Typing...');
+        messages.add({
+          "text": "Failed to send message.",
+          "isMe": false,
+        });
+      });
+    }
   }
 
   @override
@@ -56,13 +112,13 @@ class _AIPageState extends State<AIPage> {
                   final isMe = msg['isMe'];
 
                   return Align(
-                    alignment:
-                        isMe ? Alignment.centerRight : Alignment.centerLeft,
+                    alignment: isMe
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 6),
                       padding: const EdgeInsets.all(12),
-                      constraints:
-                          const BoxConstraints(maxWidth: 250, minHeight: 40),
+                      constraints: const BoxConstraints(maxWidth: 250, minHeight: 40),
                       decoration: BoxDecoration(
                         color: isMe
                             ? const Color(0xFFF4B860)
@@ -112,7 +168,6 @@ class _AIPageState extends State<AIPage> {
           ],
         ),
       ),
-      // No bottomNavigationBar, only Send button remains
     );
   }
 }

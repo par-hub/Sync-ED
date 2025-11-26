@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/supabase.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CustomBottomBar extends StatelessWidget {
   const CustomBottomBar({super.key});
-
-  Future<void> _launchURL() async {
-    const url =
-        'https://files.bpcontent.cloud/2025/04/05/06/20250405061617-KN2MUCB7.html';
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +24,11 @@ class CustomBottomBar extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.insert_drive_file),
-              onPressed: _launchURL,
+              icon: const Icon(Icons.smart_toy), // <-- Changed icon
+              onPressed: () {
+                Navigator.pushNamed(context, '/ai'); // <-- Navigate to in-app AI chat
+              },
+              tooltip: 'AI Chat',
             ),
             FutureBuilder<Map<String, dynamic>?>(
               future: supabase.getCurrentUser(),
@@ -45,7 +37,7 @@ class CustomBottomBar extends StatelessWidget {
                 if (snapshot.hasData && snapshot.data != null) {
                   pfpUrl = snapshot.data!['pfp'];
                 }
-                
+
                 return GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, '/profile');
